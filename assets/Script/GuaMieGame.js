@@ -75,13 +75,11 @@ cc.Class({
 
         this.guaguaCount=0;//guagua次数，用于计算level等级
 
-        
-        this.backgroundAudio = cc.audioEngine.playMusic(this.backgroundAudio, true);
-        cc.audioEngine.pauseMusic();
+        this.backgroundMusic=null;
     },
 
     onDestroy(){
-        cc.audioEngine.stopMusic(this.backgroundAudio);
+        cc.audioEngine.stopMusic();
         this.node.off(cc.Node.EventType.MOUSE_MOVE,this.onMove,this);
         this.node.off(cc.Node.EventType.TOUCH_MOVE,this.onMove,this);
     },
@@ -104,6 +102,8 @@ cc.Class({
         this.gameOverNode.active=false;
         this.thanksLabel.active=false;
         
+        if(!this.backgroundMusic)
+            this.backgroundMusic=cc.audioEngine.playMusic(this.backgroundAudio, true);
         cc.audioEngine.resumeMusic();
     },
     gameOver: function () {
